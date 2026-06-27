@@ -12,8 +12,8 @@ function formatDate(d: string) {
 
 function formatAmount(amount: number, currency: string) {
   return new Intl.NumberFormat('es-EC', {
-    style: 'currency', currency: currency || 'USD', minimumFractionDigits: 0,
-  }).format(amount)
+    style: 'currency', currency: currency || 'USD', minimumFractionDigits: 2,
+  }).format((amount || 0) / 100)
 }
 </script>
 
