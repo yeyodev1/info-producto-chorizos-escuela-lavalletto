@@ -87,4 +87,10 @@ const steps = [
   line-height: 1.7;
   color: $ink-light;
 }
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

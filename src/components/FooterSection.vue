@@ -33,7 +33,9 @@
 
 .footer-links {
   display: flex;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
 
   a {
     font-family: $font-mono;

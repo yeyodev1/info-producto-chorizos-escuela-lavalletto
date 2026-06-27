@@ -210,4 +210,23 @@
   text-align: center;
   letter-spacing: 0.5px;
 }
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+  }
+}
 </style>

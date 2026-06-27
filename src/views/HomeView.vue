@@ -36,7 +36,7 @@ import FooterSection from '../components/FooterSection.vue'
 
 <style scoped lang="scss">
 .landing {
-  min-height: 100vh;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }

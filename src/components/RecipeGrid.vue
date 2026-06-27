@@ -176,6 +176,12 @@ const bonuses: Bonus[] = [
   gap: 1rem;
 }
 
+@media (max-width: 640px) {
+  .bonus-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .bonus-card {
   background: $white;
   border: 2px solid $secondary;

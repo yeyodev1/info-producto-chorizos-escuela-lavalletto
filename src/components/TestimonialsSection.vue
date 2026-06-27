@@ -150,4 +150,10 @@ const testimonials = [
     border-color: $accent-red;
   }
 }
+
+@media (max-width: 640px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

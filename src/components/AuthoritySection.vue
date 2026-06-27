@@ -107,4 +107,10 @@ figcaption {
   text-align: center;
   border-top: 1px solid $border;
 }
+
+@media (max-width: 640px) {
+  .authority-grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>

@@ -76,4 +76,11 @@ const stats = [
   letter-spacing: 1px;
   color: rgba($white, 0.7);
 }
+
+@media (max-width: 640px) {
+  .section-inner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
 </style>
