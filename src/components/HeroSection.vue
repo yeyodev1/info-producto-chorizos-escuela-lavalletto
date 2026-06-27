@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
+const imageLoaded = ref(false)
+const imgRef = ref<HTMLImageElement | null>(null)
+
+onMounted(() => {
+  if (imgRef.value?.complete) {
+    imageLoaded.value = true
+  }
+})
 </script>
 
 <template>
@@ -29,10 +39,14 @@
       </div>
       <div class="hero-visual">
         <div class="image-frame">
+          <div v-if="!imageLoaded" class="image-skeleton"></div>
           <img
+            ref="imgRef"
             src="/assets/archivo_004.png"
             alt="Chorizos artesanales"
             class="hero-image"
+            :class="{ loaded: imageLoaded }"
+            @load="imageLoaded = true"
           />
           <div class="image-badge">Producto artesanal ecuatoriano</div>
         </div>
@@ -191,10 +205,29 @@
   position: relative;
 }
 
+.image-skeleton {
+  width: 100%;
+  aspect-ratio: 480 / 360;
+  background: linear-gradient(110deg, $paper 30%, darken($paper, 4%) 50%, $paper 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .hero-image {
   width: 100%;
   height: auto;
   display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+
+  &.loaded {
+    opacity: 1;
+  }
 }
 
 .image-badge {
