@@ -76,6 +76,15 @@ onMounted(async () => {
           </button>
         </div>
 
+        <div class="whatsapp-box">
+          <div class="whatsapp-icon"><i class="fab fa-whatsapp"></i></div>
+          <h3 class="whatsapp-title">Únete al grupo VIP de WhatsApp</h3>
+          <p class="whatsapp-text">Resuelve dudas, comparte tus creaciones y recibe soporte directo de la comunidad y los chefs.</p>
+          <a href="https://chat.whatsapp.com/JHuEdRnd8SRIR7wCYFa07W" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> Unirme al grupo
+          </a>
+        </div>
+
         <div class="success-actions">
           <a :href="`/acceso?email=${credentials?.email}&password=${credentials?.password}`" class="btn-login">
             <i class="fas fa-sign-in-alt"></i> Ingresar ahora
@@ -247,6 +256,56 @@ onMounted(async () => {
   &:hover {
     background: $primary;
     border-color: $primary;
+  }
+}
+
+.whatsapp-box {
+  background: #e8f5e9;
+  border: 2px solid #25d366;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.whatsapp-icon {
+  font-size: 2.5rem;
+  color: #25d366;
+  margin-bottom: 0.5rem;
+}
+
+.whatsapp-title {
+  font-family: $font-principal;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $ink;
+  margin-bottom: 0.4rem;
+}
+
+.whatsapp-text {
+  font-family: $font-secondary;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: $ink-light;
+  margin-bottom: 1rem;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #25d366;
+  color: $white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: $font-mono;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #1da851;
   }
 }
 
