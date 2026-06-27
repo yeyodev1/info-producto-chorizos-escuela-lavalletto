@@ -35,11 +35,11 @@
       <i class="fas fa-chevron-right content-arrow"></i>
     </a>
 
-    <a href="/pdf/bono-vip.pdf" class="content-card" target="_blank">
-      <div class="content-icon" style="background: #27ae60"><i class="fas fa-users"></i></div>
+    <a href="https://chat.whatsapp.com/JHuEdRnd8SRIR7wCYFa07W" class="content-card" target="_blank" rel="noopener noreferrer">
+      <div class="content-icon" style="background: #25d366"><i class="fab fa-whatsapp"></i></div>
       <div class="content-info">
         <h4>Bono #3 — Grupo VIP Choriceros</h4>
-        <p>Comunidad exclusiva en redes</p>
+        <p>Únete a la comunidad de WhatsApp</p>
       </div>
       <i class="fas fa-chevron-right content-arrow"></i>
     </a>

@@ -49,6 +49,17 @@ defineProps<{
       </div>
     </div>
 
+    <a href="https://chat.whatsapp.com/JHuEdRnd8SRIR7wCYFa07W" class="card whatsapp-card" target="_blank" rel="noopener noreferrer">
+      <div class="card-header whatsapp-header">
+        <i class="fab fa-whatsapp"></i>
+        <span>Grupo VIP de WhatsApp</span>
+      </div>
+      <div class="card-body">
+        <p class="whatsapp-text">Resuelve dudas, comparte tus creaciones y recibe soporte directo de la comunidad y los chefs.</p>
+        <span class="whatsapp-cta"><i class="fab fa-whatsapp"></i> Unirme al grupo</span>
+      </div>
+    </a>
+
     <div class="card">
       <div class="card-header secondary">
         <i class="fas fa-chart-line"></i>
@@ -95,6 +106,23 @@ defineProps<{
 .card {
   background: $white; border: 1.5px solid $border; border-radius: 10px;
   overflow: hidden; margin-bottom: 1rem;
+}
+.whatsapp-card {
+  display: block; text-decoration: none; border-color: #25d366; background: #e8f5e9;
+  transition: all 0.2s;
+  &:hover { box-shadow: 0 2px 12px rgba(#25d366, 0.2); }
+}
+.whatsapp-header {
+  background: #25d366; color: $white; border-bottom-color: #1da851;
+  i { color: $white; }
+}
+.whatsapp-text {
+  font-family: $font-secondary; font-size: 0.8rem; color: $ink-light; margin-bottom: 0.75rem;
+}
+.whatsapp-cta {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: $font-mono; font-size: 0.75rem; font-weight: 700;
+  color: $white; background: #25d366; padding: 0.5rem 1rem; border-radius: 6px;
 }
 .card-header {
   display: flex; align-items: center; gap: 0.5rem;
