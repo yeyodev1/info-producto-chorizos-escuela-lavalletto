@@ -1,27 +1,24 @@
 @use './colorVariables.module.scss' as *;
 @use './fonts.module.scss' as *;
 
-html, body {
-  background-color: $white;
-  margin: 0;
-  font-family: $font-principal;
-}
-
-:root {
-  --bg: #{$white};
-  --text: #{$primary-dark};
-  --border: #{rgba($primary-dark, 0.08)};
-  --accent: #{$primary};
-}
-
-[data-theme='dark'] {
-  --bg: #{$primary-dark};
-  --text: #{$text-light};
-  --border: #{rgba($white, 0.12)};
-  --accent: #{$primary};
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: $white;
+  background-image:
+    linear-gradient(rgba($primary, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($primary, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: $ink;
+  font-family: $font-secondary;
+  margin: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba($primary, 0.2);
+  color: $white;
 }

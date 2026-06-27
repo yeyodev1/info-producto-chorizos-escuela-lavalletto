@@ -1,18 +1,28 @@
-// Brand colors - customize per project
-$primary: #2094D2;
-$primary-dark: #010D27;
-$primary-light: #fefefe;
-$secondary: #2BBB92;
+// Lavalletto Brand Colors
+$primary: #0872a3;
+$primary-dark: #07095a;
+$primary-light: #e8f4fa;
 
-$white: #fefefe;
-$text-light: #fefefe;
-$text-secondary: #6b7280;
+$secondary: #055a8a;
 
-// Alert colors
+$white: #ffffff;
+$cream: #f5f7fa;
+$paper: #f0f4f8;
+$ink: #07095a;
+$ink-light: #3a3d6b;
+$text-light: #ffffff;
+$text-secondary: #6b7c93;
+$border: #d0d8e3;
+
+$accent-blue: #0872a3;
+$accent-red: #c0392b;
+$accent-green: #27ae60;
+$accent-gold: #d4a017;
+
 $alert-warning: #f59e0b;
-$alert-info: #3b82f6;
-$alert-success: #10b981;
-$alert-error: #ef4444;
+$alert-info: #0872a3;
+$alert-success: #27ae60;
+$alert-error: #c0392b;
 $alert-warning-bg: rgba($alert-warning, 0.1);
 $alert-info-bg: rgba($alert-info, 0.1);
 $alert-success-bg: rgba($alert-success, 0.1);
