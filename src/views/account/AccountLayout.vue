@@ -18,6 +18,7 @@ const sections = [
 ]
 
 const showMobileSidebar = ref(false)
+const showLogoutModal = ref(false)
 
 onMounted(async () => {
   const token = localStorage.getItem('access_token')
@@ -41,7 +42,12 @@ onMounted(async () => {
 })
 
 function logout() {
+  showLogoutModal.value = true
+}
+
+function confirmLogout() {
   localStorage.removeItem('access_token')
+  showLogoutModal.value = false
   router.push('/acceso')
 }
 
@@ -110,6 +116,21 @@ function isActive(path: string) {
         <p>Cargando tu cuenta...</p>
       </div>
     </main>
+
+    <!-- Logout Modal -->
+    <Teleport to="body">
+      <div v-if="showLogoutModal" class="modal-overlay" @click="showLogoutModal = false">
+        <div class="modal-card" @click.stop>
+          <div class="modal-icon"><i class="fas fa-sign-out-alt"></i></div>
+          <h3>Cerrar sesión</h3>
+          <p>¿Estás seguro de que deseas salir de tu cuenta?</p>
+          <div class="modal-actions">
+            <button class="modal-btn cancel" @click="showLogoutModal = false">Cancelar</button>
+            <button class="modal-btn confirm" @click="confirmLogout">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -316,6 +337,87 @@ function isActive(path: string) {
 .page-leave-to {
   opacity: 0;
   transform: translateY(-8px);
+}
+
+/* Logout Modal */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.15s ease;
+}
+
+.modal-card {
+  background: $white;
+  border: 2px solid $ink;
+  border-radius: 14px;
+  padding: 2rem 2rem 1.5rem;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+  animation: scaleIn 0.2s ease;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba($alert-error, 0.1);
+  color: $alert-error;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  i { font-size: 1.25rem; }
+}
+
+.modal-card h3 {
+  font-family: $font-principal;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $ink;
+  margin-bottom: 0.4rem;
+}
+
+.modal-card p {
+  font-family: $font-secondary;
+  font-size: 0.85rem;
+  color: $text-secondary;
+  margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-family: $font-mono;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1.5px solid;
+
+  &.cancel {
+    background: transparent;
+    color: $ink-light;
+    border-color: $border;
+    &:hover { background: $cream; border-color: $ink-light; }
+  }
+
+  &.confirm {
+    background: $alert-error;
+    color: $white;
+    border-color: $alert-error;
+    &:hover { background: darken($alert-error, 8%); border-color: darken($alert-error, 8%); }
+  }
 }
 
 @media (max-width: 768px) {
