@@ -15,7 +15,7 @@ function closeMenu() {
     <div class="nav-inner">
       <a href="/" class="logo">
         <img
-          src="https://escuelaculinarialavalletto.com/wp-content/uploads/2023/01/logo-lavalletto-2.png"
+          src="https://res.cloudinary.com/po8gdcqc/image/upload/v1783350869/lavalletto/chorizos-artesanales/lavalletto-logo.png"
           alt="Escuela Culinaria Lavalletto"
           class="logo-img"
         />
@@ -30,10 +30,10 @@ function closeMenu() {
       <nav class="nav-links" :class="{ open: menuOpen }">
         <a href="#recetas" @click="closeMenu"><i class="fas fa-utensils"></i> Recetas</a>
         <a href="#numeros" @click="closeMenu"><i class="fas fa-chart-bar"></i> Números</a>
-        <a href="#precios" @click="closeMenu"><i class="fas fa-tag"></i> Precios</a>
+        <a href="#precios" @click="closeMenu"><i class="fas fa-tag"></i> Oferta</a>
         <a href="#faq" @click="closeMenu"><i class="fas fa-question-circle"></i> FAQ</a>
         <a href="/acceso" class="login-link" @click="closeMenu"><i class="fas fa-sign-in-alt"></i> Ya tengo mi pedido</a>
-        <a href="#precios" class="cta-btn" @click="closeMenu"><i class="fas fa-cart-shopping"></i> Comprar</a>
+        <a href="#precios" class="cta-btn" @click="closeMenu"><i class="fas fa-cart-shopping"></i> Ver oferta</a>
       </nav>
     </div>
   </header>
@@ -63,7 +63,7 @@ function closeMenu() {
   align-items: center;
 
   .logo-img {
-    height: 36px;
+    height: 30px;
     width: auto;
     display: block;
   }
@@ -156,7 +156,7 @@ function closeMenu() {
   }
 
   .logo .logo-img {
-    height: 44px;
+    height: 36px;
   }
 
   .hamburger,

@@ -2,7 +2,7 @@
 const myths = [
   {
     myth: 'Necesito una embutidora industrial para empezar',
-    truth: 'Con una embutidora manual de $20 y tripas naturales puedes hacer chorizos de calidad profesional.',
+    truth: 'Con una embutidora manual básica y tripas naturales puedes hacer chorizos de calidad profesional.',
   },
   {
     myth: 'Hacer embutidos es complicado y requiere químicos',
@@ -14,7 +14,7 @@ const myths = [
   },
   {
     myth: 'Los precios bajos significan baja calidad',
-    truth: 'No hay suscripción. Pagas $97 una vez y te llevas todo el conocimiento + 6 bonos de por vida.',
+    truth: 'No hay suscripción. Accedes una sola vez y te llevas todo el conocimiento + 6 bonos de por vida.',
   },
 ]
 </script>

@@ -1,13 +1,39 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const imageLoaded = ref(false)
 const imgRef = ref<HTMLImageElement | null>(null)
+const urgency = ref({ days: 0, hours: 0, minutes: 0 })
+let urgencyInterval: ReturnType<typeof setInterval> | null = null
+
+function updateUrgency() {
+  const now = new Date()
+  const deadline = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59)
+  const diff = deadline.getTime() - now.getTime()
+
+  if (diff <= 0) {
+    urgency.value = { days: 0, hours: 0, minutes: 0 }
+    return
+  }
+
+  urgency.value = {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+  }
+}
 
 onMounted(() => {
+  updateUrgency()
+  urgencyInterval = setInterval(updateUrgency, 60000)
+
   if (imgRef.value?.complete) {
     imageLoaded.value = true
   }
+})
+
+onUnmounted(() => {
+  if (urgencyInterval) clearInterval(urgencyInterval)
 })
 </script>
 
@@ -15,6 +41,12 @@ onMounted(() => {
   <section class="hero">
     <div class="hero-grid">
       <div class="hero-content">
+        <div class="urgency-strip" aria-live="polite">
+          <span class="urgency-label">Valor especial solo este mes</span>
+          <span class="urgency-time">
+            Termina en <strong>{{ urgency.days }}d {{ urgency.hours }}h {{ urgency.minutes }}m</strong>
+          </span>
+        </div>
         <div class="badge-row">
           <span class="badge">+2,140 alumnos</span>
           <span class="badge">4.8/5 estrellas</span>
@@ -30,7 +62,7 @@ onMounted(() => {
           desde cero con recetas probadas, soporte VIP y una comunidad activa.
         </p>
         <div class="hero-ctas">
-          <a href="#precios" class="btn-primary">Lo quiero · $97 USD</a>
+          <a href="#precios" class="btn-primary">Quiero conocer la oferta</a>
           <a href="#recetas" class="btn-secondary">Ver recetas</a>
         </div>
         <div class="hero-login-link">
@@ -42,13 +74,13 @@ onMounted(() => {
           <div v-if="!imageLoaded" class="image-skeleton"></div>
           <img
             ref="imgRef"
-            src="/assets/archivo_004.png"
-            alt="Chorizos artesanales"
+            src="https://res.cloudinary.com/po8gdcqc/image/upload/v1783350871/lavalletto/chorizos-artesanales/diego-hero.jpg"
+            alt="Chef Diego Lavalletto"
             class="hero-image"
             :class="{ loaded: imageLoaded }"
             @load="imageLoaded = true"
           />
-          <div class="image-badge">Producto artesanal ecuatoriano</div>
+          <div class="image-badge">Chef Diego Lavalletto · Escuela Culinaria</div>
         </div>
       </div>
     </div>
@@ -73,6 +105,32 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.urgency-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: fit-content;
+  background: rgba($accent-red, 0.09);
+  border: 2px solid $accent-red;
+  border-radius: 999px;
+  color: $ink;
+  padding: 0.45rem 0.8rem;
+  font-family: $font-mono;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.urgency-label {
+  color: $accent-red;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.urgency-time strong {
+  color: $accent-red;
+  white-space: nowrap;
 }
 
 .badge-row {
@@ -197,7 +255,8 @@ onMounted(() => {
 
 .image-frame {
   width: 100%;
-  max-width: 480px;
+  max-width: 430px;
+  aspect-ratio: 4 / 5;
   border: 2px solid $ink;
   border-radius: 8px;
   overflow: hidden;
@@ -207,7 +266,7 @@ onMounted(() => {
 
 .image-skeleton {
   width: 100%;
-  aspect-ratio: 480 / 360;
+  height: 100%;
   background: linear-gradient(110deg, $paper 30%, darken($paper, 4%) 50%, $paper 70%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
@@ -220,7 +279,9 @@ onMounted(() => {
 
 .hero-image {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: 42% center;
   display: block;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -260,6 +321,14 @@ onMounted(() => {
 
   .hero-sub {
     font-size: 1rem;
+  }
+
+  .urgency-strip {
+    align-items: flex-start;
+    border-radius: 12px;
+    flex-direction: column;
+    gap: 0.2rem;
+    width: 100%;
   }
 }
 </style>

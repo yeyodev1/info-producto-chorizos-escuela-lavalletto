@@ -11,32 +11,32 @@ let countdownInterval: ReturnType<typeof setInterval> | null = null
 const bonuses = [
   {
     title: 'Bono #1 — Panes Artesanales',
-    value: '$47',
+    value: '47 USD',
     items: ['Pan de Choripán Profesional', 'Pan de Masa Madre para Pastrami'],
   },
   {
     title: 'Bono #2 — Las 3 Salsas',
-    value: '$27',
+    value: '27 USD',
     items: ['Salsa Chimichurri Premium', 'Salsa Especial para Pastrami', 'Salsa Signature para Sándwiches'],
   },
   {
     title: 'Bono #3 — Grupo VIP Choriceros',
-    value: '$97',
+    value: '97 USD',
     items: ['Comunidad privada & Networking', 'Compartir resultados', 'Resolver dudas con chefs'],
   },
   {
     title: 'Bono #4 — Sesión Q&A con Chefs',
-    value: '$97',
+    value: '97 USD',
     items: ['Preguntas en vivo', 'Correcciones y consejos de producción'],
   },
   {
     title: 'Bono #5 — Directorio de Proveedores',
-    value: '$67',
+    value: '67 USD',
     items: ['Tripas, condimentos, equipos', 'Insumos especializados'],
   },
   {
     title: 'Bono #6 — Acceso Preferencial a Charcutería',
-    value: '$197',
+    value: '197 USD',
     items: ['Precio especial para alumnos del libro'],
   },
 ]
@@ -125,10 +125,10 @@ function loadPayphoneSDK(): Promise<void> {
 
         <div class="price-block">
           <p class="price-compare">
-            <span class="price-old">${{ totalValue }}</span>
-            <span class="price-was">${{ regularPrice }}</span>
+            <span class="price-old">{{ totalValue }} USD</span>
+            <span class="price-was">{{ regularPrice }} USD</span>
           </p>
-          <p class="price-now">${{ launchPrice }}</p>
+          <p class="price-now">{{ launchPrice }} USD</p>
           <p class="price-sub">Pago único · Acceso de por vida</p>
         </div>
 
@@ -136,7 +136,7 @@ function loadPayphoneSDK(): Promise<void> {
           <i class="fas fa-clock"></i>
           <span>
             Quedan <strong>{{ countdown.days }}d {{ countdown.hours }}h {{ countdown.minutes }}m</strong>
-            — Precio sube a ${{ regularPrice }}
+            — Precio sube a {{ regularPrice }} USD
           </span>
         </div>
 
@@ -160,7 +160,7 @@ function loadPayphoneSDK(): Promise<void> {
         </div>
 
         <button class="cta-btn" @click="selectPlan">
-          <i class="fas fa-cart-shopping"></i> Comprar ahora — ${{ launchPrice }}
+          <i class="fas fa-cart-shopping"></i> Comprar ahora — {{ launchPrice }} USD
         </button>
       </div>
 
@@ -169,7 +169,7 @@ function loadPayphoneSDK(): Promise<void> {
           <div class="payphone-modal">
             <button class="modal-x" @click="closeModal">&times;</button>
             <h3 class="modal-title">Finalizar pago</h3>
-            <p class="modal-plan">Máster en Chorizos Artesanales — ${{ launchPrice }}</p>
+            <p class="modal-plan">Máster en Chorizos Artesanales — {{ launchPrice }} USD</p>
             <div id="pp-button" class="pp-button-container"></div>
           </div>
         </div>

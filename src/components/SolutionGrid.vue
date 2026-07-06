@@ -3,7 +3,7 @@ const steps = [
   {
     icon: 'fa-kitchen-set',
     title: 'Técnica sobre herramientas',
-    text: 'No necesitas una máquina de $500. Con un cuchillo afilado, tripas naturales y las manos puedes hacer chorizos de nivel profesional. La técnica es lo que cobra valor.',
+    text: 'No necesitas una máquina costosa. Con un cuchillo afilado, tripas naturales y las manos puedes hacer chorizos de nivel profesional. La técnica es lo que cobra valor.',
   },
   {
     icon: 'fa-lightbulb',
