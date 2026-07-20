@@ -50,7 +50,11 @@ const bonuses: Bonus[] = [
           </div>
         </div>
         <figure class="showcase-photo">
-          <img src="https://res.cloudinary.com/po8gdcqc/image/upload/v1783350874/lavalletto/chorizos-artesanales/chorizo-recetas.png" alt="Chorizos artesanales preparados" />
+          <img
+            src="https://res.cloudinary.com/po8gdcqc/image/upload/f_auto,q_auto,w_900/v1784564973/lavalletto/chorizos-artesanales/chorizo-foto.jpg"
+            alt="Tabla de chorizos artesanales servidos con pan y vegetales"
+            loading="lazy"
+          />
           <figcaption>Resultado real: chorizos artesanales listos para servir.</figcaption>
         </figure>
       </div>

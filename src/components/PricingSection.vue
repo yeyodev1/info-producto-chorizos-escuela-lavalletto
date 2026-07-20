@@ -1,74 +1,47 @@
 <script setup lang="ts">
-import { ref, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, nextTick } from 'vue'
 import { usePayphone } from '../composables/usePayphone'
 
 const { generateClientTransactionId, renderWidget } = usePayphone()
 
 const showPay = ref(false)
-const countdown = ref({ days: 0, hours: 0, minutes: 0 })
-let countdownInterval: ReturnType<typeof setInterval> | null = null
-
 const bonuses = [
   {
     title: 'Bono #1 — Panes Artesanales',
-    value: '47 USD',
+    value: '29 USD',
     items: ['Pan de Choripán Profesional', 'Pan de Masa Madre para Pastrami'],
   },
   {
     title: 'Bono #2 — Las 3 Salsas',
-    value: '27 USD',
+    value: '19 USD',
     items: ['Salsa Chimichurri Premium', 'Salsa Especial para Pastrami', 'Salsa Signature para Sándwiches'],
   },
   {
     title: 'Bono #3 — Grupo VIP Choriceros',
-    value: '97 USD',
+    value: '39 USD',
     items: ['Comunidad privada & Networking', 'Compartir resultados', 'Resolver dudas con chefs'],
   },
   {
     title: 'Bono #4 — Sesión Q&A con Chefs',
-    value: '97 USD',
+    value: '49 USD',
     items: ['Preguntas en vivo', 'Correcciones y consejos de producción'],
   },
   {
     title: 'Bono #5 — Directorio de Proveedores',
-    value: '67 USD',
+    value: '27 USD',
     items: ['Tripas, condimentos, equipos', 'Insumos especializados'],
   },
   {
     title: 'Bono #6 — Acceso Preferencial a Charcutería',
-    value: '197 USD',
+    value: '39 USD',
     items: ['Precio especial para alumnos del libro'],
   },
 ]
 
-const totalValue = 732
+const totalValue = 402
 const regularPrice = 200
 const launchPrice = 97
 const launchPriceCents = 9700
-
-function updateCountdown() {
-  const now = new Date()
-  const target = new Date('2026-07-16T23:59:59-05:00')
-  const diff = target.getTime() - now.getTime()
-  if (diff <= 0) {
-    countdown.value = { days: 0, hours: 0, minutes: 0 }
-    return
-  }
-  countdown.value = {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-  }
-}
-
-onMounted(() => {
-  updateCountdown()
-  countdownInterval = setInterval(updateCountdown, 60000)
-})
-
-onUnmounted(() => {
-  if (countdownInterval) clearInterval(countdownInterval)
-})
 
 function closeModal() {
   showPay.value = false
@@ -123,26 +96,35 @@ function loadPayphoneSDK(): Promise<void> {
       <div class="offer-card">
         <div class="offer-badge">🔥 OFERTA DE LANZAMIENTO</div>
 
+        <div class="value-summary">
+          <div>
+            <span>Valor por separado</span>
+            <strong class="price-old">{{ totalValue }} USD</strong>
+          </div>
+          <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          <div>
+            <span>Precio habitual</span>
+            <strong class="price-was">{{ regularPrice }} USD</strong>
+          </div>
+        </div>
+
         <div class="price-block">
-          <p class="price-compare">
-            <span class="price-old">{{ totalValue }} USD</span>
-            <span class="price-was">{{ regularPrice }} USD</span>
-          </p>
+          <span class="launch-label">Hoy accedes por</span>
           <p class="price-now">{{ launchPrice }} USD</p>
           <p class="price-sub">Pago único · Acceso de por vida</p>
         </div>
 
         <div class="urgency-bar">
-          <i class="fas fa-clock"></i>
+          <i class="fas fa-tag"></i>
           <span>
-            Quedan <strong>{{ countdown.days }}d {{ countdown.hours }}h {{ countdown.minutes }}m</strong>
-            — Precio sube a {{ regularPrice }} USD
+            <strong>Precio especial de lanzamiento activo.</strong>
+            Luego, el acceso tendrá un precio de {{ regularPrice }} USD.
           </span>
         </div>
 
         <div class="bonuses-section">
           <h3 class="bonuses-heading">
-            <i class="fas fa-gift"></i> Incluye {{ bonuses.length }} bonos exclusivos
+            <i class="fas fa-gift"></i> Todo esto también está incluido sin costo adicional
           </h3>
           <div class="bonuses-grid">
             <div v-for="b in bonuses" :key="b.title" class="bonus-item">
@@ -162,13 +144,14 @@ function loadPayphoneSDK(): Promise<void> {
         <button class="cta-btn" @click="selectPlan">
           <i class="fas fa-cart-shopping"></i> Comprar ahora — {{ launchPrice }} USD
         </button>
+        <p class="checkout-note"><i class="fas fa-lock"></i> Pago seguro procesado por PayPhone</p>
       </div>
 
       <Teleport to="body">
         <div v-if="showPay" class="payphone-overlay" @click.self="closeModal">
-          <div class="payphone-modal">
-            <button class="modal-x" @click="closeModal">&times;</button>
-            <h3 class="modal-title">Finalizar pago</h3>
+          <div class="payphone-modal" role="dialog" aria-modal="true" aria-labelledby="payment-title">
+            <button class="modal-x" aria-label="Cerrar ventana de pago" @click="closeModal">&times;</button>
+            <h3 id="payment-title" class="modal-title">Finalizar pago</h3>
             <p class="modal-plan">Máster en Chorizos Artesanales — {{ launchPrice }} USD</p>
             <div id="pp-button" class="pp-button-container"></div>
           </div>
@@ -235,12 +218,35 @@ function loadPayphoneSDK(): Promise<void> {
   margin-bottom: 1.5rem;
 }
 
-.price-compare {
+.value-summary {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+  gap: 1.25rem;
+  margin: 0.5rem auto 1.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $border;
+
+  div {
+    text-align: center;
+  }
+
+  span,
+  strong {
+    display: block;
+  }
+
+  span {
+    margin-bottom: 0.2rem;
+    color: $text-secondary;
+    font-family: $font-secondary;
+    font-size: 0.72rem;
+  }
+
+  > i {
+    color: $primary;
+    font-size: 0.8rem;
+  }
 }
 
 .price-old {
@@ -255,6 +261,17 @@ function loadPayphoneSDK(): Promise<void> {
   font-size: 1.1rem;
   color: $alert-error;
   text-decoration: line-through;
+}
+
+.launch-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: $primary;
+  font-family: $font-mono;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .price-now {
@@ -402,6 +419,24 @@ function loadPayphoneSDK(): Promise<void> {
     background: $accent-red;
     border-color: $accent-red;
   }
+
+  &:focus-visible {
+    outline: 3px solid $accent-gold;
+    outline-offset: 3px;
+  }
+}
+
+.checkout-note {
+  margin-top: 0.75rem;
+  color: $text-secondary;
+  font-family: $font-secondary;
+  font-size: 0.75rem;
+  text-align: center;
+
+  i {
+    margin-right: 0.25rem;
+    color: $alert-success;
+  }
 }
 
 .payphone-overlay {
@@ -453,6 +488,11 @@ function loadPayphoneSDK(): Promise<void> {
   &:hover {
     color: $ink;
   }
+
+  &:focus-visible {
+    outline: 2px solid $primary;
+    outline-offset: 3px;
+  }
 }
 
 .modal-title {
@@ -474,5 +514,42 @@ function loadPayphoneSDK(): Promise<void> {
 .pp-button-container {
   min-height: 60px;
   width: 100%;
+}
+
+@media (max-width: 560px) {
+  .pricing {
+    padding-inline: 1rem;
+  }
+
+  .offer-card {
+    padding: 2.25rem 1rem 1.5rem;
+  }
+
+  .offer-badge {
+    font-size: 0.62rem;
+    letter-spacing: 1px;
+  }
+
+  .value-summary {
+    gap: 0.75rem;
+  }
+
+  .price-now {
+    font-size: 3rem;
+  }
+
+  .urgency-bar {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .bonus-header {
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .bonus-value {
+    flex-shrink: 0;
+  }
 }
 </style>
