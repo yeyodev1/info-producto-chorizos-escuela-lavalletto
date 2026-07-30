@@ -281,7 +281,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 42% center;
+  object-position: 42% 20%;
   display: block;
   opacity: 0;
   transition: opacity 0.4s ease;
